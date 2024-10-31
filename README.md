@@ -25,3 +25,14 @@ Before you begin, ensure you have the following installed on your machine:
 ```bash
 git clone https://github.com/yourusername/book-management-api.git
 cd book-management-api
+
+
+### 2. Run Application
+
+```bash
+docker compose up
+
+### 3. Check Application is working
+
+```bash
+Open brower and navigate to http://localhost:3000/api/v1/api-docs
