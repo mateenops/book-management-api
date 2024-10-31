@@ -1,17 +1,27 @@
-Book Management API
-This project is a NestJS-based RESTful API for managing a book inventory, complete with Swagger integration for easy documentation and testing.
+# Book Management API
 
-Features
-Swagger Integration: Interactive API documentation available at /api-docs.
-CRUD Endpoints:
-GET /books: Retrieve all books.
-GET /books/:id: Retrieve a book by ID.
-POST /books: Add a new book with title, author, and ISBN validation.
-PUT /books/:id: Update a book by ID.
-DELETE /books/:id: Delete a book by ID.
-Data Validation: Enforced using class-validator.
-Error Handling: Comprehensive error handling for missing records and invalid inputs.
-Prerequisites
-Docker and Docker Compose installed on your machine.
-Getting Started
-1. Clone the Repository
+## Overview
+
+The Book Management API is a RESTful service built using NestJS that allows users to manage a collection of books. This API provides endpoints for creating, reading, updating, and deleting book entries, complete with data validation and interactive documentation via Swagger.
+
+## Features
+
+- **CRUD Operations**: Manage books with endpoints for creating, retrieving, updating, and deleting book entries.
+- **Data Validation**: Ensures that only valid data is processed using `class-validator`.
+- **Swagger Integration**: Automatically generated API documentation available at `/api-docs`.
+- **Error Handling**: Comprehensive error handling for common issues like missing records and invalid input.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/) (version 14.x or later)
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/book-management-api.git
+cd book-management-api
