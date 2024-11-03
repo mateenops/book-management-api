@@ -23,7 +23,18 @@ Before you begin, ensure you have the following installed on your machine:
 ### Build & Run Application
 
 ```bash
-git clone https://github.com/mateenops/book-management-api.git
-cd book-management-api
-docker compose up
-Open brower and navigate to http://localhost:3000/api/v1/api-docs
+1- git clone https://github.com/mateenops/book-management-api.git
+2- cd book-management-api
+3- docker compose up -d
+4- npm install
+
+5- Create .env file in root directory and add these envs
+POSTGRES_HOST="localhost"
+POSTGRES_PORT=5432
+POSTGRES_USERNAME="postgres"
+POSTGRES_PASSWORD="postgres"
+POSTGRES_DATABASE="books"
+
+6- npm run start:dev
+
+7- Open brower and navigate to http://localhost:3000/api/v1/api-docs

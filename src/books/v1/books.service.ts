@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Books } from './books.entity';
 import { Repository } from 'typeorm';
@@ -12,23 +17,41 @@ export class BooksService {
   ) {}
 
   public async getAllBooks(): Promise<Array<GetBookDto>> {
-    return await this.booksRepository.find();
+    const books = await this.booksRepository.find();
+    return books;
   }
 
-  public async getBookById(id: number) {
-    return await this.booksRepository.findOneBy({ id: id });
+  public async getBookById(id: number): Promise<GetBookDto> {
+    const book = await this.booksRepository.findOneBy({ id });
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
+    return book;
   }
 
   public async createBook(bookDto: BookDto): Promise<GetBookDto> {
-    const bookItem = this.booksRepository.create(bookDto);
-    return this.booksRepository.save(bookItem);
+    try {
+      const newBook = await this.booksRepository.save(bookDto);
+      return newBook;
+    } catch (error) {
+      throw new BadRequestException(`Failed to create book. ${error.message}`);
+    }
   }
 
-  public async updateBook(id: string, bookDto: BookDto) {
-    return await this.booksRepository.update(id, bookDto);
+  public async updateBook(id: number, bookDto: BookDto): Promise<GetBookDto> {
+    const existingBook = await this.booksRepository.findOneBy({ id });
+    if (!existingBook) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
+
+    await this.booksRepository.update(id, bookDto);
+    return { ...existingBook, ...bookDto };
   }
 
   public async deleteBook(id: number): Promise<void> {
-    await this.booksRepository.delete(id);
+    const deleteResult = await this.booksRepository.delete(id);
+    if (!deleteResult.affected) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
   }
 }
